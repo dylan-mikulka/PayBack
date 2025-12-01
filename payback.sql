@@ -1,7 +1,8 @@
 DROP DATABASE IF EXISTS payback;
 CREATE DATABASE payback;
 USE payback;
--- 1
+-- Table 1 (Users)
+-- this stores all users of the PayBack app
 CREATE TABLE Users (
 	user_id INT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
@@ -12,7 +13,8 @@ CREATE TABLE Users (
     INDEX idx_email (email),
     INDEX idx_name (last_name, first_name)
 );
--- 2
+-- Table 2 (Groups)
+-- this stores the expense-sharing groups 
 CREATE TABLE `Groups` (
 	group_id INT PRIMARY KEY,
 	name VARCHAR(100) NOT NULL,
@@ -22,7 +24,8 @@ CREATE TABLE `Groups` (
 	INDEX idx_category (category),
 	INDEX idx_created_date (created_date)
 );
--- 3
+-- Table 3 (Group Members)
+-- Links users to groups 
 CREATE TABLE GroupMembers (
 	member_id INT PRIMARY KEY,
     group_id INT NOT NULL,
@@ -36,7 +39,8 @@ CREATE TABLE GroupMembers (
     INDEX idx_group (group_id),
     INDEX idx_user (user_id)
 );
--- 4
+-- Table 4 (Expenses)
+-- Stores all the expenses 
 CREATE TABLE Expenses (
 	expense_id INT PRIMARY KEY,
     group_id INT NOT NULL,
@@ -56,7 +60,8 @@ CREATE TABLE Expenses (
     INDEX idx_expense_date (expense_date),
     INDEX idx_category (category)
 );
--- 5
+-- Table 5 (Debts)
+-- Tracks who owes whom money after splitting expenses
 CREATE TABLE Debts (
 	debt_id INT PRIMARY KEY AUTO_INCREMENT, 
 	group_id INT NOT NULL,
@@ -78,7 +83,8 @@ CREATE TABLE Debts (
     INDEX idx_creditor (creditor_user_id),
     INDEX idx_group_debt (group_id)
 );
--- 6
+-- Table 6 (Settlements)
+-- Tracks who has paid their debts and transactions between users
 CREATE TABLE Settlements (
 	settlement_id INT PRIMARY KEY AUTO_INCREMENT, 
     group_id INT NOT NULL,
@@ -102,9 +108,25 @@ CREATE TABLE Settlements (
     INDEX idx_settlement_date (settlement_date)
 );
 
-SELECT * FROM Users;
-SELECT * FROM `Groups`;
-SELECT * FROM GroupMembers;
-SELECT * FROM Expenses;
-
-
+-- Table 7 (Optimized Settlements) 
+-- Stores the minimum transactions needed to settle all debts
+-- This is the result of our settlement optimization algorithm
+CREATE TABLE OptimizedSettlements (
+    opt_settlement_id INT PRIMARY KEY,
+    group_id INT NOT NULL,
+    payer_user_id INT NOT NULL,
+    recipient_user_id INT NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (group_id) REFERENCES `Groups`(group_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (payer_user_id) REFERENCES Users(user_id)
+        ON DELETE RESTRICT,
+    FOREIGN KEY (recipient_user_id) REFERENCES Users(user_id)
+        ON DELETE RESTRICT,
+    CHECK (amount > 0),
+    CHECK (payer_user_id != recipient_user_id),
+    INDEX idx_group_opt (group_id),
+    INDEX idx_payer_opt (payer_user_id),
+    INDEX idx_recipient_opt (recipient_user_id)
+);

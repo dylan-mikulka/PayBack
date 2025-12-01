@@ -1,0 +1,32 @@
+settlement_id,group_id,payer_user_id,recipient_user_id,amount,settlement_date,notes
+1,1,2,1,128.75,2025-11-15,Venmo payment - settled in full
+2,1,3,2,112.25,2025-11-15,Venmo payment - settled in full
+3,1,4,2,83.62,2025-11-10,Partial payment
+4,1,3,1,131.90,2025-11-10,Partial payment
+5,1,4,3,74.00,2025-11-15,Venmo payment - settled in full
+6,2,7,1,8.62,2025-11-15,Venmo payment - settled in full
+7,2,6,5,2.00,2025-11-15,Venmo payment - settled in full
+8,2,7,5,8.00,2025-11-15,Venmo payment - settled in full
+9,2,7,6,2.68,2025-11-10,Partial payment
+10,3,8,2,656.00,2025-11-15,Venmo payment - settled in full
+11,3,8,3,370.33,2025-11-10,Partial payment
+12,4,4,1,269.74,2025-11-10,Partial payment
+13,4,10,1,338.44,2025-11-10,Partial payment
+14,4,10,4,51.67,2025-11-15,Venmo payment - settled in full
+15,5,5,3,1.44,2025-11-10,Partial payment
+16,5,11,3,14.12,2025-11-10,Partial payment
+17,5,11,5,16.76,2025-11-10,Partial payment
+18,6,4,6,51.71,2025-11-10,Partial payment
+19,6,12,4,112.25,2025-11-15,Venmo payment - settled in full
+20,6,9,6,92.12,2025-11-10,Partial payment
+21,6,12,9,41.26,2025-11-10,Partial payment
+22,7,7,1,117.00,2025-11-15,Venmo payment - settled in full
+23,7,4,2,79.00,2025-11-15,Venmo payment - settled in full
+24,7,8,2,54.32,2025-11-10,Partial payment
+25,7,8,4,8.76,2025-11-10,Partial payment
+26,7,8,7,13.00,2025-11-15,Venmo payment - settled in full
+27,8,3,1,78.00,2025-11-15,Venmo payment - settled in full
+28,8,5,1,35.36,2025-11-10,Partial payment
+29,8,10,1,57.50,2025-11-15,Venmo payment - settled in full
+30,8,3,5,8.17,2025-11-10,Partial payment
+31,8,5,10,3.07,2025-11-10,Partial payment
