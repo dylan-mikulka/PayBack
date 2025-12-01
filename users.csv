@@ -1,0 +1,13 @@
+user_id,first_name,last_name,email,phone,created_date
+1,Dylan,Mikulka,dylan.mikulka@email.com,207-555-0101,2025-01-01
+2,Malia,Wanderer,malia.wanderer@email.com,617-555-0102,2025-01-01
+3,Shahid,Shaikh,shahid.shaikh@email.com,857-555-0103,2025-01-01
+4,Ansh,Aggarwal,ansh.aggarwal@email.com,781-555-0104,2025-01-01
+5,Sarah,Johnson,sarah.j@email.com,617-555-0105,2025-01-15
+6,Mike,Chen,mike.chen@email.com,857-555-0106,2025-01-15
+7,Emma,Rodriguez,emma.r@email.com,781-555-0107,2025-01-20
+8,Alex,Thompson,alex.t@email.com,508-555-0108,2025-02-01
+9,Olivia,Martinez,olivia.m@email.com,978-555-0109,2025-02-01
+10,James,Wilson,james.w@email.com,339-555-0110,2025-02-15
+11,Sophia,Anderson,sophia.a@email.com,774-555-0111,2025-03-01
+12,Ethan,Taylor,ethan.t@email.com,351-555-0112,2025-03-01
