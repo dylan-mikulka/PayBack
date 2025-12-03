@@ -1,17 +1,17 @@
--- ============================================================
+
 -- PAYBACK DATABASE - SQL QUERIES
 -- CS3200 Final Project
 -- Dylan Mikulka, Malia Wanderer, Shahid Shaikh, Ansh Aggarwal
--- ============================================================
+
+
 
 USE payback;
 
--- ============================================================
 -- QUERY 1: Which user paid the most expenses in each group?
 -- This query identifies the top spender per group by summing
 -- all expenses paid by each user within their group, then
 -- finding the maximum.
--- ============================================================
+
 
 SELECT 
     g.name AS group_name,
@@ -33,12 +33,11 @@ HAVING SUM(e.amount) = (
 ORDER BY total_paid DESC;
 
 
--- ============================================================
+
 -- QUERY 2: What is each user's net balance across all groups?
 -- A positive balance means others owe them money overall.
 -- A negative balance means they owe others money overall.
 -- This uses two subqueries to calculate credits and debts.
--- ============================================================
 
 SELECT 
     CONCAT(u.first_name, ' ', u.last_name) AS user_name,
@@ -65,11 +64,10 @@ WHERE COALESCE(owed_to.total, 0) > 0 OR COALESCE(they_owe.total, 0) > 0
 ORDER BY net_balance DESC;
 
 
--- ============================================================
 -- QUERY 3: Which groups have the most outstanding debt?
 -- This helps identify groups that need to "settle up" soon.
 -- Joins Debts with Groups and aggregates by group.
--- ============================================================
+
 
 SELECT 
     g.name AS group_name,
@@ -83,11 +81,10 @@ GROUP BY g.group_id, g.name, g.category
 ORDER BY total_outstanding_debt DESC;
 
 
--- ============================================================
 -- QUERY 4: What percentage of debts have been settled per group?
 -- Compares total debt amounts to total settlement amounts.
 -- Uses subqueries to aggregate from both Debts and Settlements.
--- ============================================================
+
 
 SELECT 
     g.name AS group_name,
@@ -112,11 +109,11 @@ LEFT JOIN (
 ORDER BY percent_settled DESC;
 
 
--- ============================================================
+
 -- QUERY 5: Who owes whom in the roommate apartment (Rent & Utilities)?
 -- This is a specific use case query showing debt relationships
 -- for the housing group, demonstrating real-world utility.
--- ============================================================
+
 
 SELECT 
     CONCAT(debtor.first_name, ' ', debtor.last_name) AS roommate_who_owes,
@@ -130,11 +127,11 @@ WHERE g.category = 'housing'
 ORDER BY d.amount DESC;
 
 
--- ============================================================
+
 -- QUERY 6: What are the spending patterns by expense category?
 -- Aggregates all expenses by category to show where money goes.
 -- Useful for understanding group spending habits.
--- ============================================================
+
 
 SELECT 
     category,
@@ -148,11 +145,11 @@ GROUP BY category
 ORDER BY total_spent DESC;
 
 
--- ============================================================
+
 -- QUERY 7: Which users are in multiple groups together?
 -- Finds pairs of users who share more than one group.
 -- Uses a self-join on GroupMembers to find co-memberships.
--- ============================================================
+
 
 SELECT 
     CONCAT(u1.first_name, ' ', u1.last_name) AS user_1,
@@ -171,11 +168,10 @@ HAVING COUNT(DISTINCT gm1.group_id) > 1
 ORDER BY shared_groups DESC;
 
 
--- ============================================================
 -- QUERY 8: Personal dashboard - What does a specific user owe?
 -- Shows all debts for user Ansh (user_id = 4) across all groups.
 -- Demonstrates a user-facing query for the application.
--- ============================================================
+
 
 SELECT 
     g.name AS group_name,
@@ -188,12 +184,11 @@ WHERE d.debtor_user_id = 4  -- Ansh Aggarwal
 ORDER BY d.amount DESC;
 
 
--- ============================================================
 -- QUERY 9: How many transactions would optimization save?
 -- Compares current debt count vs theoretical minimum transactions.
 -- The minimum needed = (number of people with non-zero balance) - 1
 -- This demonstrates the value of our settlement optimization feature.
--- ============================================================
+
 
 SELECT 
     g.name AS group_name,
@@ -219,11 +214,10 @@ WHERE EXISTS (SELECT 1 FROM Debts WHERE group_id = g.group_id)
 ORDER BY transactions_saved DESC;
 
 
--- ============================================================
 -- QUERY 10: Monthly expense trends - When do groups spend most?
 -- Groups expenses by month to identify spending patterns over time.
 -- Useful for budgeting and understanding seasonal expenses.
--- ============================================================
+
 
 SELECT 
     DATE_FORMAT(expense_date, '%Y-%m') AS month,
@@ -235,7 +229,3 @@ FROM Expenses
 GROUP BY DATE_FORMAT(expense_date, '%Y-%m')
 ORDER BY month;
 
-
--- ============================================================
--- END OF QUERIES
--- ============================================================
